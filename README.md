@@ -1,4 +1,4 @@
-# Pitch Deck Analyzer
+# Allocator Pitch Deck Analyzer Demo
 
 A tool for quickly screening pre-seed pitch decks against investment criteria. Upload a PDF, get pass/fail verdicts per criterion, and draft a response email — all in one view.
 
