@@ -505,17 +505,6 @@
   <div class="left">
 
     <div class="panel-section">
-      <div class="panel-label">Anthropic API Key</div>
-      <input
-        type="password"
-        id="apiKeyInput"
-        class="instructions-textarea"
-        placeholder="sk-ant-..."
-        style="min-height:unset; padding: 10px 12px; font-size:13px; resize:none;"
-      />
-    </div>
-
-    <div class="panel-section">
       <div class="panel-label">Pitch Deck (PDF)</div>
       <div class="drop-zone" id="dropZone">
         <input type="file" id="fileInput" accept="application/pdf" />
@@ -668,9 +657,6 @@
   analyzeBtn.addEventListener("click", analyze);
 
   async function analyze() {
-    const apiKey = document.getElementById("apiKeyInput").value.trim();
-    if (!apiKey) { showError("Please enter your Anthropic API key."); return; }
-
     const criteria = criteriaInput.value.split("\n").map(l => l.trim()).filter(Boolean);
     if (!pdfBase64) return;
     if (criteria.length === 0) { showError("Add at least one criterion before analyzing."); return; }
@@ -710,7 +696,7 @@ Respond ONLY with valid JSON — no markdown, no code fences. Format:
     try {
       const response = await fetch("/api/analyze", {
         method: "POST",
-        headers: { "content-type": "application/json", "x-api-key": apiKey },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
           max_tokens: 2048,

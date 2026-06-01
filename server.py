@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import http.server, json, urllib.request, urllib.error, os, mimetypes
 
-API_KEY = None  # forwarded from client request header
+import os
+API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 PORT = 8765
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -42,20 +43,11 @@ class Handler(http.server.BaseHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", 0))
         body = self.rfile.read(length)
 
-        api_key = self.headers.get("x-api-key", "")
-        if not api_key:
-            self.send_response(401)
-            self.send_header("Content-Type", "application/json")
-            self._cors()
-            self.end_headers()
-            self.wfile.write(b'{"error":{"message":"Missing API key"}}')
-            return
-
         req = urllib.request.Request(
             "https://api.anthropic.com/v1/messages",
             data=body,
             headers={
-                "x-api-key": api_key,
+                "x-api-key": API_KEY,
                 "anthropic-version": "2023-06-01",
                 "content-type": "application/json",
             },

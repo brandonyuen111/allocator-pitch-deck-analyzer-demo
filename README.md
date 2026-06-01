@@ -27,14 +27,15 @@ You can edit, add, or remove criteria directly in the UI before analyzing.
 git clone https://github.com/brandonyuen111/pitch-deck-analyzer
 cd pitch-deck-analyzer
 
-# 2. Start the local server
+# 2. Set your API key
+export ANTHROPIC_API_KEY=sk-ant-...
+
+# 3. Start the local server
 python3 server.py
 
-# 3. Open in your browser
+# 4. Open in your browser
 open http://localhost:8765
 ```
-
-Then paste your Anthropic API key into the **API Key** field at the top of the left panel.
 
 ## Usage
 
